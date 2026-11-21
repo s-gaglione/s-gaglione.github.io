@@ -1,0 +1,168 @@
+/* Thème « Atelier » : neutres chauds (gris pierre / ivoire), titres en sérif léger, corps en grotesque, chiffres tabulaires.
+   Accent bleu pervenche propre au site. Sombre par défaut, clair si le système le demande. */
+:root{color-scheme:dark light;
+--paper:#252523;--paper-2:#2c2b28;--panel:#2c2b28;--panel-2:#1b1a19;--raised:#413c3a;
+--head:#ffffff;--ink:#f4f0eb;--text-2:#e7e1da;--muted:#c7c2bc;--faint:#a49f98;
+--line:#413d39;--line-2:#524c47;--bar:#5f5a54;
+--accent:#8ab4ff;--accent-2:#b9cffc;--accent-ink:#1b1a19;
+--good:#41be4b;--bad:#f25550;
+--serif:"Newsreader","Iowan Old Style",Georgia,serif;
+--sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+--mono:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+--r-sm:.125rem;--r-md:.375rem;--r-lg:.5rem;--r-xl:.75rem}
+@media (prefers-color-scheme:light){:root{
+--paper:#fcfaf8;--paper-2:#ffffff;--panel:#ffffff;--panel-2:#f4f0eb;--raised:#f0ebe5;
+--head:#252523;--ink:#2e2b29;--text-2:#413d39;--muted:#4f4b46;--faint:#67625b;
+--line:#e1dedb;--line-2:#d8d4d0;--bar:#d8d4d0;
+--accent:#2f5fc4;--accent-2:#4a74cf;--accent-ink:#ffffff;
+--good:#2d7f39;--bad:#a5302a}}
+
+/* Base */
+body{background:var(--paper);color:var(--ink);font:400 1rem/1.5 var(--sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-feature-settings:"cv11","ss01"}
+h1,h2,h3{font-family:var(--serif);font-weight:300;line-height:1.08;letter-spacing:-.01em;color:var(--head)}
+a:hover{color:var(--accent)}
+.top,.bottom{border-color:var(--line)}
+.top .brand{font-family:var(--serif);font-weight:400;font-size:clamp(1.35rem,2.4vw,1.6rem);letter-spacing:-.01em;color:var(--head)}
+.nav a{font-size:.875rem;line-height:1.25rem;color:var(--muted)}
+/* Sur-titres, méta, en-têtes de tableau : petites capitales espacées */
+.eyebrow,.meta,dt,th,.row-date,.list>h2,#about>h2{font-family:var(--sans);font-weight:500;font-size:.75rem;line-height:1rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint)}
+.eyebrow{color:var(--accent)}
+
+/* Accueil */
+.hero-compact .intro{font-family:var(--serif);font-weight:300;font-size:clamp(1.5rem,2.6vw,2.25rem);line-height:1.15;letter-spacing:-.01em;color:var(--head);max-width:30ch}
+.hero-compact .intro strong{font-weight:400;color:var(--head)}
+.hero-compact .intro-2{font-family:var(--sans);font-weight:400;font-size:1rem;line-height:1.5rem;color:var(--muted)}
+/* Liens sociaux : onglets « pastille » arrondis (rayon 12 px), fond surélevé au survol */
+.pills{gap:.5rem}
+.pills a{font-size:.875rem;line-height:1.25rem;padding:.5rem 1rem;border-radius:var(--r-xl);border:1px solid var(--line);background:transparent;color:var(--text-2);transition:background-color .15s,color .15s}
+.pills a:hover{background:var(--raised);border-color:transparent;color:var(--ink)}
+.hero-anim svg{filter:saturate(.55)}
+.latest a{border-left-color:var(--accent)}.latest .lt-title{font-family:var(--serif);font-weight:400}
+.latest b{font-family:var(--mono);font-weight:500;font-variant-numeric:tabular-nums}
+
+/* Liste des écrits */
+.section{border-top-color:var(--line)}
+.row{border-bottom-color:var(--line);padding:1rem 0}
+.row-title{font-family:var(--serif);font-weight:400;font-size:clamp(1.25rem,2vw,1.5rem);line-height:1.25;letter-spacing:-.005em;color:var(--head)}
+.row:hover .row-title{color:var(--accent)}
+.row-sum{font-size:.875rem;line-height:1.25rem;color:var(--muted)}
+.row-arrow{color:var(--faint)}.row:hover .row-arrow{color:var(--accent)}
+.section p{color:var(--muted)}
+#about p{font-size:1rem;line-height:1.625}
+
+/* Articles */
+main.article{line-height:1.625}
+main.article h1{font-weight:300;line-height:1.08;letter-spacing:-.015em;font-size:clamp(2.25rem,6vw,3.75rem)}
+main.article h2{font-weight:400;font-size:1.5em;line-height:1.33;margin:2.4rem 0 .6rem}
+main.article h3{font-family:var(--sans);font-weight:500;font-size:1.125em;line-height:1.55;letter-spacing:0}
+main.article p,main.article li{color:var(--text-2)}
+main.article .lede{font-family:var(--sans);font-size:1.125em;line-height:1.55;color:var(--muted)}
+main.article .byline{color:var(--faint)}
+main.article a{color:var(--accent);text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+main.article .prompt{background:var(--panel-2);border-left:2px solid var(--accent);border-radius:0 var(--r-md) var(--r-md) 0}
+main.article footer{border-top-color:var(--line)}
+code,kbd,samp{font-family:var(--mono);font-size:.9em}
+
+/* Tableaux de résultats : lignes fines, en-têtes en capitales espacées, chiffres tabulaires */
+table.data{font-size:.875rem;line-height:1.25rem;font-variant-numeric:tabular-nums;border-top:1px solid var(--line)}
+table.data th,table.data td{padding:.75rem .75rem;border-bottom:1px solid var(--line)}
+table.data th{font-size:.6875rem;color:var(--faint);background:transparent}
+table.data td{color:var(--text-2)}
+table.data tbody tr:hover td{background:var(--panel-2)}
+table.data .us{color:var(--accent);font-weight:600}
+main.article caption{color:var(--muted);font-size:.875rem}
+figure.chart figcaption,.exhibit figcaption{color:var(--muted)}
+
+/* Démo et cartes */
+.exhibit{background:var(--panel);border-color:var(--line);border-radius:var(--r-xl)}
+.mem{background:var(--panel-2);border-color:var(--line);border-radius:var(--r-md);font-variant-numeric:tabular-nums}
+.mem th,.mem td{border-bottom-color:var(--line)}
+.verdict,.pattern,.ba,.ux-read{background:var(--panel-2);border-color:var(--line);border-radius:var(--r-lg)}
+.ux-read{background:transparent}.ux-read strong{font-family:var(--serif);font-weight:400}
+.cases button{border-radius:var(--r-xl);font:450 .875rem/1.25rem var(--sans);padding:.5rem 1rem;border-color:var(--line);color:var(--text-2)}
+.cases button:hover{background:var(--raised);border-color:transparent;color:var(--ink)}
+.cases button[aria-pressed=true]{background:var(--raised);border-color:transparent;color:var(--head)}
+.chip{border-radius:var(--r-sm);background:var(--panel-2);border-color:var(--line-2)}
+.flow{background:var(--panel-2);border-color:var(--line);border-radius:var(--r-lg)}
+.primary{border-radius:var(--r-xl)}.ghost{border-radius:var(--r-xl)}
+.bottom{color:var(--faint);font-size:.875rem}
+
+/* Clair : l'illustration bleu nuit est inversée pour rester lisible sur fond ivoire */
+@media (prefers-color-scheme:light){
+.hero-anim svg{filter:invert(1) hue-rotate(180deg) saturate(.5) contrast(.9)}
+.flow{background:#2c2b28}
+}
+
+/* ===== Retouches du 20/11 (demande du porteur) : animation aux couleurs du thème, graisses plus fortes, teintes décalées ===== */
+/* Teintes de fond légèrement décalées (moins proches d'une charte existante) */
+:root{--paper:#21201e;--paper-2:#292825;--panel:#292825;--panel-2:#1a1918;--raised:#3a3633}
+@media (prefers-color-scheme:light){:root{--paper:#f9f7f3;--paper-2:#ffffff;--panel:#ffffff;--panel-2:#f2eee8;--raised:#ebe5dd}}
+
+/* Graisses : sérif moins fin, corps légèrement plus dense en sombre */
+h1,h2,h3{font-weight:400}
+.hero-compact .intro{font-weight:400}.hero-compact .intro strong{font-weight:550}
+.row-title,.latest .lt-title{font-weight:500}
+main.article h1{font-weight:400}
+main.article h2{font-weight:500}
+main.article h3{font-weight:600}
+.top .brand{font-weight:500}
+@media (prefers-color-scheme:dark){body{font-weight:420}main.article p,main.article li{font-weight:420}}
+
+/* Animation : plus de filtres, couleurs tirées de la palette (neutres chauds + accent) */
+.hero-anim svg,.hero-anim .anim{filter:none!important}
+.hero-anim .tok rect{fill:var(--panel);stroke:var(--line-2)}
+.hero-anim .tok text,.hero-anim g[fill="#e7ecf6"]{fill:var(--text-2)}
+.hero-anim text[fill="#5d6b88"],.hero-anim text[fill="#9aa7c0"]{fill:var(--faint)}
+.hero-anim .drawer{fill:var(--panel)}
+.hero-anim rect[stroke-dasharray]{stroke:var(--faint)}
+.hero-anim g[fill="#2a3a5c"] rect{fill:var(--bar)}
+.hero-anim g[fill="#2a3a5c"] rect[opacity]{fill:var(--accent)}
+.hero-anim g[stroke="#2a3a5c"]{stroke:var(--line-2)}
+.hero-anim .halo{fill:var(--accent)}
+.hero-anim #g-core stop:nth-child(1){stop-color:var(--ink)}
+.hero-anim #g-core stop:nth-child(2){stop-color:var(--accent-2)}
+.hero-anim #g-core stop:nth-child(3){stop-color:var(--accent)}
+.hero-anim #g-line stop{stop-color:var(--accent)}
+.hero-anim .answer rect{fill:var(--panel);stroke:var(--accent)}
+.hero-anim .answer text{fill:var(--text-2)}.hero-anim .answer tspan{fill:var(--accent)}
+@keyframes lit-atelier{0%,40%{fill:var(--panel)}50%,70%{fill:color-mix(in srgb,var(--accent) 35%,var(--panel))}85%,100%{fill:var(--panel)}}
+.hero-anim .drawer.hit{animation-name:lit-atelier}
+
+/* Tableaux sur mobile : dégradé sur le bord droit pour signaler le défilement */
+@media (max-width:640px){
+.wrap{background:linear-gradient(to right,var(--paper) 30%,transparent) left center/40px 100% no-repeat local,
+linear-gradient(to left,var(--paper) 30%,transparent) right center/40px 100% no-repeat local,
+radial-gradient(farthest-side at 0 50%,color-mix(in srgb,var(--ink) 22%,transparent),transparent) left center/14px 100% no-repeat scroll,
+radial-gradient(farthest-side at 100% 50%,color-mix(in srgb,var(--ink) 22%,transparent),transparent) right center/14px 100% no-repeat scroll}
+}
+
+/* Retouche 2 (20/11) : encore un cran de graisse */
+h1,h2,h3{font-weight:500}
+.hero-compact .intro{font-weight:500}.hero-compact .intro strong{font-weight:600}
+.row-title,.latest .lt-title{font-weight:600}
+main.article h1{font-weight:500}
+main.article h2{font-weight:600}
+.top .brand{font-weight:600}
+body,main.article p,main.article li{font-weight:430}
+@media (prefers-color-scheme:dark){body,main.article p,main.article li{font-weight:450}}
+.nav a,.pills a{font-weight:500}
+
+/* Liens sociaux : logos seuls, monochromes (noir en clair, blanc cassé en sombre) */
+.pills.social{gap:.4rem}
+.pills.social a{display:inline-flex;align-items:center;justify-content:center;width:2.5rem;height:2.5rem;padding:0;border-radius:999px;color:var(--head)}
+.pills.social a:hover{color:var(--accent);background:var(--raised)}
+.pills.social svg{display:block}
+@media (prefers-color-scheme:light){.hero-anim #g-core stop:nth-child(1){stop-color:#ffffff}.hero-anim #g-core stop:nth-child(2){stop-color:#9db6ec}}
+
+/* Essai Figtree (20/11, aperçu local) : une seule famille pour titres et texte ; grand titre ExtraBold 800,
+   36 px mobile / 46 px ordinateur, interlettrage -0.025em */
+:root{--serif:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;--sans:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+body{font-feature-settings:normal}
+body,main.article p,main.article li{font-weight:400}
+@media (prefers-color-scheme:dark){body,main.article p,main.article li{font-weight:400}}
+.hero-compact .intro,main.article h1{font-weight:800;font-size:36px;line-height:1.1;letter-spacing:-.025em;max-width:22ch}
+.hero-compact .intro strong{font-weight:800}
+@media (min-width:768px){.hero-compact .intro,main.article h1{font-size:46px}}
+h2,h3,main.article h2{font-weight:700;letter-spacing:-.015em}
+.row-title,.latest .lt-title{font-weight:700;letter-spacing:-.01em}
+.top .brand{font-weight:800;letter-spacing:-.02em}

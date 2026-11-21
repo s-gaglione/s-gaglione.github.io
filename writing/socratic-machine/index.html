@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#21201e" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f9f7f3" media="(prefers-color-scheme: light)">
+<title>A Socratic machine — Sullivan Gaglione</title>
+<meta name="description" content="Large language models think they know. Socrates’ wisdom was the opposite. Separating intelligence from acquired knowledge, and what it takes for a small model to say “I don’t know”.">
+<meta property="og:title" content="A Socratic machine">
+<meta property="og:description" content="Large language models think they know. Socrates’ wisdom was the opposite. Separating intelligence from acquired knowledge, and what it takes for a small model to say “I don’t know”.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://s-gaglione.github.io/writing/socratic-machine/">
+<meta property="og:url" content="https://s-gaglione.github.io/writing/socratic-machine/">
+<meta property="og:image" content="https://s-gaglione.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../style.css?v=06e14743">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../../theme-atelier.css?v=06e14743">
+
+<link rel="alternate" type="application/rss+xml" title="Sullivan Gaglione" href="../../feed.xml">
+</head>
+<body>
+
+<div class="shell narrow"><header class="top"><a class="brand" href="../../">Sullivan Gaglione</a><nav class="nav"><a href="../../#writing">All writing</a></nav></header></div>
+<main class="article">
+<article>
+<p class="meta">Essay · research</p>
+<h1>A Socratic machine</h1>
+<p class="lede">Building language models that know what they don’t know, and why that starts with separating intelligence from what has been learned.</p>
+<p class="byline">By Sullivan Gaglione · November 2026</p>
+<h2>What Socrates actually said</h2>
+<p>The line everyone quotes, “I know that I know nothing”, is not quite what Socrates said. In Plato’s <em>Apology</em>, after questioning the men of Athens reputed to be wise, he concludes something more precise: he is wiser than them in one small thing, because <em>what he does not know, he does not think he knows</em>.</p>
+<p>That is not modesty. It is a skill: knowing where your knowledge ends. And it is exactly the skill today’s language models lack.</p>
+<h2>Machines that think they know</h2>
+<p>A large language model has read a large part of the written world and compressed it into its weights. Ask it a question and it will almost always answer, fluently, whether or not it actually has the information. When it does not, it produces something plausible. We call it hallucination, but from the model’s point of view nothing went wrong: it was trained and evaluated in ways that reward a confident guess over an honest “I don’t know”.</p>
+<p>This is the opposite of Socratic wisdom. The model does not know what it does not know, because what it knows is mixed into the same billions of parameters that let it speak and reason. There is no boundary to point at.</p>
+<h2>Intelligence and the acquired</h2>
+<p>Psychologists have long distinguished two things we lump together as “intelligence”. One is the capacity to reason, understand and adapt: fluid intelligence. The other is what we have accumulated: facts, vocabulary, experience, crystallised over time. A brilliant person who has just arrived in a new country has the first without much of the second. An encyclopaedia has the second without any of the first.</p>
+<p>Large models fuse both. Their size is largely the price of storing the acquired. My research takes the opposite bet: keep the acquired <em>outside</em> the model, in a memory that people can read, edit and delete, and keep inside the model only what it needs to understand a question, find the right entry, reason over it, and say clearly when the entry is not there.</p>
+<p>The model becomes smaller. More importantly, its knowledge acquires a boundary. The goal is that everything it asserts comes from a record it can cite, and that everything outside the memory is something it knows it does not know, and can say so. That system does not exist yet; the pieces below are tested separately.</p>
+<h2>Three ways to fail the Socratic test</h2>
+<p>Measuring this turned out to be the hard part. A model can fail in three distinct ways, and each needs its own test.</p>
+<ul>
+<li><strong>Thinking it knows.</strong> The classic failure: answering when the information is missing. On a held-out set of 5,516 questions written by people over a Wikidata-based memory (9 properties), a dense-retrieval baseline with a tuned threshold still answered 78 of the 100 questions whose fact had been deleted. A separate, non-generative memory reader abstained on 89 of them, with 96 % precision at 81 % coverage on intact questions. Its limits are real: 9 properties, no text generation, and after an edit it returned the new value in 80 % of cases.</li>
+<li><strong>Confusing what it knows.</strong> A subtler failure. Delete a fact about one country while another country shares its name, and a classic memory reader quietly answers with the namesake’s fact. In a controlled benchmark, with equal supervision, this happened in 98.7 % of cases (237 episodes × 3 seeds, same data). My reader asked “which one?” instead, and substituted in none of them (95 % upper bound, per episode: ≈ 1.6 %); on this set, a strict identity rule manages it too.</li>
+<li><strong>Doubting what it does know.</strong> Socrates had a sense of proportion. A model trained hard to doubt can become useless. A <a href="../small-faithful-model/">small 0.5B model I trained</a> to trust its evidence became more faithful to its sources than a model fourteen times larger that had not been trained for this, but it also started refusing 30 % of perfectly answerable questions. A second version of the training brought unjustified refusals back to 10 %, but it also abstained less when it should have, and did not beat the first version on the balanced score. Humility has to be calibrated, not maximised.</li>
+</ul>
+<h2>Why this matters beyond the lab</h2>
+<p>For a company, a public administration or a school, the value of an assistant is not how much it knows. It is whether you can trust what it says, correct it when the facts change, and remove what must be forgotten. A model whose knowledge lives in an administered memory can do all three without retraining. Its mistakes point to a record that someone can fix.</p>
+<p>It also changes the economics. If the model no longer has to memorise the world, it can be small enough to run on a laptop or on premises, which matters for sovereignty, privacy and cost.</p>
+<h2>What is not solved</h2>
+<p>None of this makes a small model wise. My results hold on specific benchmarks, mostly in English, and on structured facts. Composition — reasoning over facts never combined before — is still weak. The hardest open question is the one Socrates kept asking: how much understanding is needed to know <em>which</em> question you are being asked? That part still has to live in the model, and it is where the next experiments go.</p>
+<p>But the direction is clear to me. The next step in intelligence is not a model that knows more. It is a model that knows where its knowledge ends.</p>
+<h2>Notes</h2>
+<ul class="refs">
+<li>Plato, <em>Apology</em>, 21d. The usual quotation (“I know that I know nothing”) is a later paraphrase.</li>
+<li>Raymond B. Cattell’s distinction between fluid and crystallised intelligence (1963).</li>
+<li>Kalai et al., “Why Language Models Hallucinate”, 2025, on evaluations that reward guessing.</li>
+<li>Results cited are from my own experiments: a synthetic deletion-and-namesake benchmark (three seeds), the public FaithEval benchmark with an answerable-question control, and a held-out set of 5,516 questions written by people over a fixed Wikidata-based memory. Details of the methods are available to partners under NDA.</li>
+</ul>
+<p><em>Corrected on 21/11/2026: namesake figure replaced by the equal-supervision comparison (98.7 % vs 0 %), interval recomputed per episode, and the result of a strict identity rule, which also reaches 0 %, added.</em></p>
+
+<footer><p class="next"><span class="meta">Read next</span><a href="../small-faithful-model/">Training a 500M model to follow documents made it refuse more often</a></p><a href="../../#writing">All writing</a></footer>
+</article>
+</main>
+
+</body>
+</html>

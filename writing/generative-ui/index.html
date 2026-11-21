@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#21201e" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f9f7f3" media="(prefers-color-scheme: light)">
+<title>Generative UI needs a design system, not a blank canvas — Sullivan Gaglione</title>
+<meta name="description" content="When models generate interfaces, the design system becomes the contract between the model and the product.">
+<meta property="og:title" content="Generative UI needs a design system, not a blank canvas">
+<meta property="og:description" content="When models generate interfaces, the design system becomes the contract between the model and the product.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://s-gaglione.github.io/writing/generative-ui/">
+<meta property="og:url" content="https://s-gaglione.github.io/writing/generative-ui/">
+<meta property="og:image" content="https://s-gaglione.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../style.css?v=06e14743">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../../theme-atelier.css?v=06e14743">
+
+<link rel="alternate" type="application/rss+xml" title="Sullivan Gaglione" href="../../feed.xml">
+</head>
+<body>
+
+<div class="shell narrow"><header class="top"><a class="brand" href="../../">Sullivan Gaglione</a><nav class="nav"><a href="../../#writing">All writing</a></nav></header></div>
+<main class="article">
+<article>
+<p class="meta">Design note</p>
+<h1>Generative UI needs a design system, not a blank canvas</h1>
+<p class="lede">Models can now return interfaces instead of paragraphs. The interesting question is not whether they can draw a screen, but which screens we let them draw.</p>
+<p class="byline">By Sullivan Gaglione · November 2026</p>
+<h2>Beyond the wall of text</h2>
+<p>Ask a model to compare three suppliers and it will write three paragraphs. What you wanted was a table. Ask it to reschedule a meeting and it will describe the new time. What you wanted was a confirmation card with a button. Generative UI is the idea that the model’s output can be an interface: it chooses a component, fills it with data, and the product renders it.</p>
+<p>Done well, this is the missing half of the intent paradigm. Language captures what the user wants; a generated component shows the result in a form that can be scanned, edited and confirmed.</p>
+<h2>Two ways to do it</h2>
+<p><strong>Free generation.</strong> The model writes markup or code, and the product renders whatever comes back. It is flexible and impressive in demos. It is also inconsistent with the rest of the product, hard to make accessible, hard to test, and a security surface.</p>
+<p><strong>Constrained generation.</strong> The model picks from a catalogue of components the team already owns — card, table, form, chart, confirmation — and supplies typed data. The product renders its own components. Less freedom, far more trust.</p>
+<p>For products people rely on, I would choose the second almost every time.</p>
+<h2>The design system becomes an API</h2>
+<p>Under constrained generation, the design system changes role. It is no longer only a library for designers and front-end engineers; it is the vocabulary the model speaks. Each component needs what an API needs: a clear name, a schema for its data, rules for when to use it, and examples. “Use a table when comparing more than two items on more than two attributes” is now an instruction for a model as much as a guideline for a person.</p>
+<p>This is good news for design teams. The quality of the generated interface depends directly on the quality of the system: well-named components, sensible defaults, accessible primitives. Design debt now shows up as model behaviour.</p>
+<h2>Keep the human in the loop where it counts</h2>
+<p>A generated button that sends money is dangerous, unless it shows, before approval, who acts, on what, and with what consequences. The rule I use: the model may <em>propose</em> any component; only a person may <em>commit</em> anything with consequences. For an irreversible action, the preview and the explicit approval are not negotiable, since there will be no undo.</p>
+<h2>Test interfaces like outputs</h2>
+<p>If the model chooses the interface, the choice can be wrong. That means evaluation now covers UI too: for a set of representative requests, did the model pick the right component, fill the required fields, cite its sources, and stay within the allowed actions? These checks are cheap to automate once components have schemas, and they catch regressions when the model or the prompts change.</p>
+<h2>Where it is going</h2>
+<p>I expect the boundary between “the app” and “the assistant” to fade. Screens will be partly static and partly assembled on demand from the same components. The teams that do this well will not be the ones with the most creative model, but the ones with the clearest design system and the strictest rules about what the model may do with it.</p>
+<h2>References</h2>
+<ul class="refs">
+<li>Amershi et al., <a href="https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/">Guidelines for Human-AI Interaction</a>, CHI 2019.</li>
+<li>Google PAIR, <a href="https://pair.withgoogle.com/guidebook/">People + AI Guidebook</a>.</li>
+</ul>
+
+<footer><a href="../../#writing">All writing</a></footer>
+</article>
+</main>
+
+</body>
+</html>

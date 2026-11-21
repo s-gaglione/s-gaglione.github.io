@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#21201e" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f9f7f3" media="(prefers-color-scheme: light)">
+<title>Models are becoming a commodity. Everything around them is not. — Sullivan Gaglione</title>
+<meta name="description" content="As language models converge in quality and fall in price, value moves to distribution, proprietary context, workflow, trust and cost.">
+<meta property="og:title" content="Models are becoming a commodity. Everything around them is not.">
+<meta property="og:description" content="As language models converge in quality and fall in price, value moves to distribution, proprietary context, workflow, trust and cost.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://s-gaglione.github.io/writing/models-are-a-commodity/">
+<meta property="og:url" content="https://s-gaglione.github.io/writing/models-are-a-commodity/">
+<meta property="og:image" content="https://s-gaglione.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../style.css?v=06e14743">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../../theme-atelier.css?v=06e14743">
+
+<link rel="alternate" type="application/rss+xml" title="Sullivan Gaglione" href="../../feed.xml">
+</head>
+<body>
+
+<div class="shell narrow"><header class="top"><a class="brand" href="../../">Sullivan Gaglione</a><nav class="nav"><a href="../../#writing">All writing</a></nav></header></div>
+<main class="article">
+<article>
+<p class="meta">Tech & business · opinion</p>
+<h1>Models are becoming a commodity. Everything around them is not.</h1>
+<p class="lede">Every few months, a model that was state of the art becomes something you can rent for a fraction of the price, or download for free. That pattern has consequences for anyone building a company on top of AI.</p>
+<p class="byline">By Sullivan Gaglione · November 2026</p>
+<h2>The signs of a commodity</h2>
+<p>A product becomes a commodity when buyers can swap one supplier for another without much pain, and price becomes the main difference. Language models are moving that way. The gap between the best closed models and the best open-weight ones keeps narrowing on most everyday tasks. The price of a given level of quality keeps falling. And switching providers is often a configuration change: same prompt format, same API shape, a different endpoint.</p>
+<p>The frontier still matters. The very best models remain ahead on the hardest reasoning and coding tasks, and that lead is worth paying for when the task is hard enough. But most business tasks are not at the frontier. For classification, extraction, drafting and question answering over your own documents, “good enough and cheap” is already available from several suppliers.</p>
+<h2>Where the value goes</h2>
+<p>When the core input becomes interchangeable, value moves to what is hard to copy. I see five places:</p>
+<ol>
+<li><strong>Distribution.</strong> Being where the work already happens — the email client, the accounting tool, the IDE — beats having a slightly better model somewhere else.</li>
+<li><strong>Proprietary context.</strong> A model knows the world. It does not know your customers, your contracts or your edge cases. The company that organises its own knowledge so that any model can use it reliably owns the advantage, not the model vendor.</li>
+<li><strong>Workflow.</strong> Answers are cheap; finished work is not. Turning a model’s output into an invoice sent, a ticket closed or a report filed, with the right checks, is where products differentiate.</li>
+<li><strong>Trust.</strong> Evaluation, traceability, the ability to say “I don’t know”, and an audit trail of what was answered and why. Regulated sectors will buy this before they buy raw intelligence.</li>
+<li><strong>Cost and control.</strong> Running a small model on your own hardware can be cheaper, faster and private enough to unlock use cases that an API never will. Sovereignty is becoming a purchasing criterion, not a slogan.</li>
+</ol>
+<h2>What I would do as a builder</h2>
+<ul>
+<li><strong>Never marry a model.</strong> Put an abstraction between your product and any single provider, and run your own evaluations so you can switch when a better or cheaper option appears.</li>
+<li><strong>Own your evals.</strong> A benchmark you built from your own cases is worth more than any public leaderboard. It is also what lets you switch models with confidence.</li>
+<li><strong>Invest in your knowledge layer.</strong> Clean, versioned, permissioned data that a model can read and cite. This outlives every model generation.</li>
+<li><strong>Use the smallest model that works.</strong> Route easy requests to small, cheap models and keep the expensive ones for the hard cases. The savings compound.</li>
+</ul>
+<h2>The uncomfortable conclusion</h2>
+<p>If models commoditise, the companies that train them face the hardest business problem in the stack: enormous fixed costs to stay at the frontier, and customers who can leave with a config change. Their answer, predictably, is to climb the stack — to own the assistant, the agent, the developer tools and the enterprise relationship. Which means the application layer is not just where the value is moving. It is also where the model makers are coming to compete.</p>
+
+<footer><a href="../../#writing">All writing</a></footer>
+</article>
+</main>
+
+</body>
+</html>

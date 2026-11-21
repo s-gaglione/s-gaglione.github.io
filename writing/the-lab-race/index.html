@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#21201e" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f9f7f3" media="(prefers-color-scheme: light)">
+<title>The lab race, seen from the application layer — Sullivan Gaglione</title>
+<meta name="description" content="OpenAI, Anthropic, Google and the open-weight ecosystem are playing different games. What their strategies mean for the companies building on top of them.">
+<meta property="og:title" content="The lab race, seen from the application layer">
+<meta property="og:description" content="OpenAI, Anthropic, Google and the open-weight ecosystem are playing different games. What their strategies mean for the companies building on top of them.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://s-gaglione.github.io/writing/the-lab-race/">
+<meta property="og:url" content="https://s-gaglione.github.io/writing/the-lab-race/">
+<meta property="og:image" content="https://s-gaglione.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../style.css?v=06e14743">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../../theme-atelier.css?v=06e14743">
+
+<link rel="alternate" type="application/rss+xml" title="Sullivan Gaglione" href="../../feed.xml">
+</head>
+<body>
+
+<div class="shell narrow"><header class="top"><a class="brand" href="../../">Sullivan Gaglione</a><nav class="nav"><a href="../../#writing">All writing</a></nav></header></div>
+<main class="article">
+<article>
+<p class="meta">Tech & business · opinion</p>
+<h1>The lab race, seen from the application layer</h1>
+<p class="lede">The headlines frame it as a war between a few AI labs. From where I sit, building products on top of them, it looks less like one war and more like several different games being played at once.</p>
+<p class="byline">By Sullivan Gaglione · November 2026</p>
+<h2>Different bets, not one race</h2>
+<p>It is tempting to rank the labs on a single leaderboard. Their strategies suggest they are not even trying to win the same thing.</p>
+<ul>
+<li><strong>OpenAI</strong> has bet heavily on the consumer: a single assistant used by a very large share of the people who use AI at all, extended toward search, shopping, devices and agents. The prize is the default relationship with the end user.</li>
+<li><strong>Anthropic</strong> has leaned toward enterprises and developers: models positioned on reliability and safety, strong in coding and long, agentic tasks, sold heavily through APIs and partners. The prize is the trusted supplier inside companies and software teams.</li>
+<li><strong>Google</strong> plays from distribution and infrastructure: models inside products billions of people already use, and its own chips and cloud underneath. The prize is not losing the interfaces it already owns.</li>
+<li><strong>The open-weight ecosystem</strong> — Meta, Mistral, and a fast-moving group of Chinese labs such as the teams behind Qwen and DeepSeek — keeps raising the floor. Each strong open release resets what “good enough for free” means.</li>
+</ul>
+<p>These are simplifications, and every lab hedges across all of them. But the centre of gravity of each strategy is different, and that matters more than who leads a benchmark this month.</p>
+<h2>The squeeze in the middle</h2>
+<p>The labs face a hard combination: the cost of staying at the frontier keeps rising, while the price customers pay for a given level of quality keeps falling, pushed down by competition and open models. The two natural ways out are scale (become the default for hundreds of millions of users) or depth (become indispensable inside workflows that companies will not easily rip out). Most labs are trying both, which is why they increasingly ship applications, agents and developer tools, not just models.</p>
+<h2>What it means for builders</h2>
+<ol>
+<li><strong>Expect your supplier to become your competitor.</strong> If your product is a thin layer over a model, the lab can ship the same feature to its own users tomorrow. Build where the lab is not: your customers’ data, your domain’s workflow, your users’ trust.</li>
+<li><strong>Treat model choice as a portfolio.</strong> Use a frontier model where the task needs it, a cheap one where it doesn’t, and an open-weight one where data must not leave the building. The competition between labs is your bargaining power. Use it.</li>
+<li><strong>Re-test open-weight models on the tasks you pay for.</strong> Every time an open model reaches “good enough” for one of your tasks, your cost and your independence improve. Re-run your evaluations on each major open release.</li>
+<li><strong>Bet on boring advantages.</strong> Integration, data quality, evaluation, security and support are not glamorous. They are also what customers renew for.</li>
+</ol>
+<h2>My bet</h2>
+<p>I don’t think one lab “wins AI” the way one company won search. I expect a small number of frontier providers, a strong open-weight floor, and most of the durable value captured by companies that own a customer relationship and a body of knowledge the models cannot see. The interesting question for a builder is not which lab to back. It is which part of the stack you can own that none of them can.</p>
+
+<footer><a href="../../#writing">All writing</a></footer>
+</article>
+</main>
+
+</body>
+</html>

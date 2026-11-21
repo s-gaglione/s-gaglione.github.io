@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#21201e" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#f9f7f3" media="(prefers-color-scheme: light)">
+<title>Training a 500M model to follow documents made it refuse more often — Sullivan Gaglione</title>
+<meta name="description" content="A 500-million-parameter model briefly trained to trust its documents: what it gains on FaithEval, what it loses on ordinary questions, and why the FaithEval average rewards silence.">
+<meta property="og:title" content="Training a 500M model to follow documents made it refuse more often">
+<meta property="og:description" content="A 500-million-parameter model briefly trained to trust its documents: what it gains on FaithEval, what it loses on ordinary questions, and why the FaithEval average rewards silence.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://s-gaglione.github.io/writing/small-faithful-model/">
+<meta property="og:url" content="https://s-gaglione.github.io/writing/small-faithful-model/">
+<meta property="og:image" content="https://s-gaglione.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../style.css?v=06e14743">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../../theme-atelier.css?v=06e14743">
+
+<link rel="alternate" type="application/rss+xml" title="Sullivan Gaglione" href="../../feed.xml">
+</head>
+<body>
+
+<div class="shell narrow"><header class="top"><a class="brand" href="../../">Sullivan Gaglione</a><nav class="nav"><a href="../../#writing">All writing</a></nav></header></div>
+<main class="article">
+<article>
+<p class="meta">Research note</p>
+<h1>Training a 500M model to follow documents made it refuse more often</h1>
+<p class="lede">After a short training run, it follows a document that contradicts the real world 77% of the time, against 66% before. On 500 ordinary questions, it makes half as many errors, but refuses three times as often.</p>
+<p class="byline">By Sullivan Gaglione · November 2026</p>
+<h2>The question</h2>
+<p>If a company keeps its knowledge outside the model, the model’s job changes. It no longer needs to know things; it needs to read, to prefer what it reads over what it remembers, and to say so when the evidence is missing or contradictory. Does that job require a big model?</p>
+<h2>The setup</h2>
+<p>I started from Qwen2.5-0.5B-Instruct (500 million parameters) and trained it on examples derived automatically from public question-answering data, with no new human labelling. The training run is short and cheap. No question, article or passage from training appears in the evaluation sets: I checked by identifier, title, text and passage overlap. Some training formats resemble FaithEval’s, but the contents are disjoint. The exact recipe stays private. Training for context faithfulness is an active research area, and recent work pushes 7B models much further with heavier methods. The point here is <em>scale and cost</em>.</p>
+<h2>Results on FaithEval</h2>
+<p>All models below are evaluated on the same 500 examples per task. The main comparison is the same model before and after training. The 7B is a reference point, not a fair opponent: it received no training of this kind.</p>
+<div class="wrap"><table class="data">
+<thead><tr><th>FaithEval, 500 examples per task</th><th>Qwen2.5-0.5B</th><th class="us">Trained 0.5B <small>(seed 0)</small></th><th>Qwen2.5-7B <small>(4-bit)</small></th></tr></thead>
+<tbody>
+<tr><td>Counterfactual: follows the document</td><td>66.0</td><td class="us">77.2</td><td>61.0</td></tr>
+<tr><td>Unanswerable: says “unknown”</td><td>37.2</td><td class="us">87.4</td><td>53.0</td></tr>
+<tr><td>Inconsistent: flags the conflict</td><td>1.0</td><td class="us">73.2</td><td>52.2</td></tr>
+</tbody></table></div>
+<p>The counterfactual task is the cleanest test: it is multiple choice, the document contradicts the real world, and abstaining scores zero. Training takes the model from 66.0 to 77.2. The 7B does <em>worse</em> than both small models: in the errors I inspected, it picked the real-world answer over the one the document states. With a single 4-bit 7B and one prompt, I would not generalise this to “size strengthens priors”; the FaithEval authors report that larger models are not necessarily more faithful to their context.</p>
+<h2>The catch: an average that rewards silence</h2>
+<p>The FaithEval prompt states, task by task, the word expected when there is no answer (“unknown”) or when the documents conflict (“conflict”). A strategy that reads no document, copies that word and picks a random letter on the multiple-choice task scores <strong>75.3</strong> (one fixed random draw, 26 % correct on the multiple-choice task, close to chance) on the FaithEval average. The starting 0.5B (34.7) and the 7B (55.4) are below it. An off-the-shelf Qwen3-0.6B (no task-specific fine-tuning, thinking disabled, greedy decoding) scores <strong>89.5</strong>, the best number in this note: 70.8 on the counterfactual task, and it answers “conflict” on all 500 inconsistent examples and “unknown” on 98 % of the unanswerable ones. But it answers only <strong>10.8 %</strong> of ordinary questions correctly when the answer is in the document.</p>
+<p>FaithEval contains no ordinary question. So I added 500 SQuAD questions whose answer is in the passage. That is where the change made by training shows:</p>
+<div class="wrap"><table class="data">
+<thead><tr><th>500 ordinary questions</th><th>Qwen2.5-0.5B</th><th class="us">Trained 0.5B</th><th>Qwen2.5-7B <small>(4-bit)</small></th></tr></thead>
+<tbody>
+<tr><td>Correct answers</td><td>321</td><td class="us">299</td><td>441</td></tr>
+<tr><td>Wrong answers</td><td>126</td><td class="us">51</td><td>39</td></tr>
+<tr><td>Refusals</td><td>53</td><td class="us">150</td><td>20</td></tr>
+<tr><td>Precision when it answers</td><td>72&nbsp;%</td><td class="us">85&nbsp;%</td><td>92&nbsp;%</td></tr>
+</tbody></table></div>
+<p>Following each question before and after training: 44 wrong answers became correct and 52 became refusals. But 64 correct answers also became refusals. The model is wrong half as often, and refuses three times as much. For a support team, that is a real product decision: what does a wrong answer cost, and what happens to a customer who gets a refusal?</p>
+<div class="wrap"><table class="data">
+<caption>Each of the 500 ordinary questions, before (rows) and after (columns) training</caption>
+<thead><tr><th>Before \ after</th><th>Correct</th><th>Wrong</th><th>Refusal</th><th>Total before</th></tr></thead>
+<tbody>
+<tr><td>Correct</td><td>238</td><td>19</td><td>64</td><td>321</td></tr>
+<tr><td>Wrong</td><td>44</td><td>30</td><td>52</td><td>126</td></tr>
+<tr><td>Refusal</td><td>17</td><td>2</td><td>34</td><td>53</td></tr>
+<tr><td>Total after</td><td>299</td><td>51</td><td>150</td><td>500</td></tr>
+</tbody></table></div>
+<p>To summarise both sides, I use the unweighted mean of the four tasks (the three FaithEval tasks and the ordinary questions), which I call the balanced score. It gives each task 25 % of the weight, whatever its frequency in a real product. I defined it after the first runs, then used it for everything that followed.</p>
+<div class="wrap"><table class="data">
+<thead><tr><th>Same 500 examples per task</th><th>Balanced score</th><th>Refuses answerable questions</th></tr></thead>
+<tbody>
+<tr><td>Qwen2.5-0.5B</td><td>42.1</td><td>10.6 %</td></tr>
+<tr><td>Trivial strategy (copy the expected word)</td><td>56.5</td><td>100 %</td></tr>
+<tr><td>Qwen2.5-7B (4-bit)</td><td>63.6</td><td>4.0 %</td></tr>
+<tr><td>Qwen3-0.6B (off-the-shelf)</td><td>69.8</td><td>85.4 %</td></tr>
+<tr><td class="us">Trained 0.5B</td><td class="us">74.4</td><td>30.0 %</td></tr>
+</tbody></table></div>
+<p>A second training run with a different seed reproduced the overall picture (FaithEval average 83.7, ordinary questions 64.6, balanced score 78.9) but not the exact trade-off: it flagged contradictions far more often (96.8 vs 73.2) and said “unknown” less often (79.8 vs 87.4). The two seeds differ markedly task by task.</p>
+<p>Reporting faithfulness next to an answerable-question control is not my idea; it is where recent evaluation work is heading (see Trust-Score and selective question answering below), and I think FaithEval numbers should always come with it. One caveat: a small part of FaithEval comes from the same SQuAD set as my control, and 28 of the evaluated examples share their passage with it. That is not a training leak, but the two measures are not fully independent.</p>
+<h2>Next</h2>
+<p>A later training variant brought unjustified refusals down to 10 % (one seed), but it also abstained less when it should have, and did not beat the first version on the balanced score (72.0 vs 74.4). Over-caution is not solved. Next: reducing it without losing faithfulness, testing the same approach on somewhat larger models, and moving facts out of paragraphs into a structured memory the model reads from.</p>
+<h2>References</h2>
+<ul class="refs">
+<li>Ming et al., <a href="https://arxiv.org/abs/2410.03727">FaithEval</a>, 2024.</li>
+<li>Longpre et al., <a href="https://arxiv.org/abs/2109.05052">Entity-Based Knowledge Conflicts in Question Answering</a>, 2021.</li>
+<li>Si et al., <a href="https://arxiv.org/abs/2505.16483">Teaching LLMs to Maintain Contextual Faithfulness via Synthetic Tasks and RL</a> (CANOE), 2025.</li>
+<li>Bi et al., <a href="https://arxiv.org/abs/2412.15280">Context-DPO</a>, 2024.</li>
+<li>Song et al., <a href="https://arxiv.org/abs/2409.11242">Trust-Score / Trust-Align</a>, 2024; Kamath et al., <a href="https://arxiv.org/abs/2006.09462">Selective Question Answering under Domain Shift</a>, 2020.</li>
+</ul>
+
+<footer><p class="next"><span class="meta">Read next</span><a href="../socratic-machine/">A Socratic machine</a></p><a href="../../#writing">All writing</a></footer>
+</article>
+</main>
+
+</body>
+</html>
